@@ -47,7 +47,14 @@ def ProcessContent(filename, extension):
 	episode = "00"
 	season = "00"
 
-	fnTitle = title = info['title'].title()
+	if info.get("title"):
+		titleTest = info['title']
+		if isinstance(titleTest, list):			##Test to see if title comes back as a list and if does samples just the filename.
+			title_parent, title_filename = os.path.split(filename) 
+			newInfo = guessit(title_filename)
+			fnTitle = title = newInfo['title'].title()
+		else:
+			fnTitle = title = info['title'].title()
 	type = info['type']
 
 #Guessit Episode number and Season Stuff
